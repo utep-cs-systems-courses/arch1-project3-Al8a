@@ -10,14 +10,14 @@ AS              = msp430-elf-gcc -mmcu=${CPU} -c
 all:wakedemo-c.elf wakedemo-s.elf
 
 # additional rules for files
-wakedemo-c.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o switch_interrupt_handler-c.o
+wakedemo-c.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o switch_interrupt_handler-c.o switch_update_interrupt_sense-c.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
 load-c: wakedemo-c.elf
 	msp430loader.sh $^
 
 # assembly stuff
-wakedemo-s.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o switch_interrupt_handler-s.o
+wakedemo-s.elf: ${COMMON_OBJECTS} wakedemo.o wdt_handler.o switch_interrupt_handler-s.o switch_update_interrupt_sense-s.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
 load-s: wakedemo-s.elf
