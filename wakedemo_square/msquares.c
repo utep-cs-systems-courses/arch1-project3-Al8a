@@ -34,6 +34,8 @@ char current_position = 0, current_color = 0;
 #define LED BIT6		                         /* note that bit zero req'd for display */
 #define SWITCHES 15
 
+
+
 int redrawScreen = 1;
 
 
@@ -144,8 +146,14 @@ update_shape()
 {
   static char last_position = 0, last_color = 0;
   redrawScreen = 0;
-  int pos = current_position, color = current_color;
 
+  int pos, color;
+  and_sr(8);    /* mask interrupt (GIE = 0) */
+  pos   = current_position;
+  color = current_color;
+
+  or_sr(8);     /* unmask interrupts (GIE = 1)*/
+  
   if (pos == last_position && color == last_color)      /* nothing to redraw */
     return;
 
