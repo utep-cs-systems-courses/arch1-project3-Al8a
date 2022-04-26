@@ -1,5 +1,5 @@
 #include "switches.h"
-
+#include <msp430.h>
 void
 switch_interrupt_handler()
 {

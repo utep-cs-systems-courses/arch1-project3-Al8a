@@ -1,5 +1,5 @@
 #include "switches.h"
-
+#include <msp430.h>
 
 char 
 switch_update_interrupt_sense()
