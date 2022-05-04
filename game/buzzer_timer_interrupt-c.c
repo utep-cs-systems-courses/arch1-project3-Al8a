@@ -12,6 +12,6 @@ void buzzer_timer_interrupt()
   case BUZZER_OFF:
     return;
   case BUZZER_PLAYING:
-    play_song_2();
+    update_state();
   }
 }

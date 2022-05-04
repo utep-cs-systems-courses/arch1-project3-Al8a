@@ -4,6 +4,9 @@
 #include "buzzer_notes.h"
 #include "state_machines.h"
 #include "lcd.h"
+#include "lcdutils.h"
+#include "lcddraw.h"
+
 
 
 
@@ -16,7 +19,6 @@ void play_song_1()
   int n = 45;
 
   if (curr_note < n){
-    
     buzzer_set_period(notes[curr_note]);
     curr_note++;
   }else
@@ -117,4 +119,53 @@ void play_song_3()
     curr_note++;
     break;
   }
+}
+
+
+
+int switches = 0;
+
+void update_state(int current_switch)
+{
+
+  if(current_switch == (switches & SW1)){
+    play_song_1();
+  }
+  else buzzer_stop();
+
+  if(current_switch == (switches & SW2)){
+    display_text();
+  }
+  if(current_switch == (switches & SW3)){
+    //draw_character();
+    clearScreen(COLOR_BLUE);
+  }
+  if(current_switch == (switches & SW4)){
+    reset_game();
+    display_reset_text();
+  }
+ 
+}
+
+
+
+void reset_game(){
+  clearScreen(COLOR_BLACK);
+  buzzer_stop();
+}
+
+
+
+void display_text(){
+  drawString8x12(20,100, "HOWDY", COLOR_BLACK, COLOR_YELLOW);
+}
+
+
+
+void display_reset_text()
+{
+  clearScreen(COLOR_RED);
+  fillRectangle(80,80,60,60,COLOR_ORANGE);
+  drawString11x16(20,80,"GOODBYE", COLOR_BLACK, COLOR_WHITE);
+  
 }

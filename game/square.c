@@ -10,7 +10,6 @@
 
 #define SQUARE_SIZE 4
 
-extern int switches;
 
 static Square *squares;
 //static SquareState square_state = SQUARES_IDLE;

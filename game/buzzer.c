@@ -4,9 +4,10 @@
 
 BuzzerState buzzer_state = BUZZER_OFF;
 
+
 void buzzer_init()
 {
-  timerAUpmode();                     // Used to drive speaker
+  timerAUpmode();                    // Used to drive speaker
   P2SEL2 &= ~(BIT6 | BIT7);
   P2SEL &= ~BIT7;
   P2SEL |= BIT6;
@@ -22,11 +23,6 @@ void buzzer_set_period(short cycles) // Buzzer clock = 2Mhz
 }
 
 
-buzzer_timer_interrupt()
-{
-}
-
-
 
 void buzzer_stop()
 {
@@ -34,4 +30,11 @@ void buzzer_stop()
   buzzer_state = BUZZER_OFF;
 }
 
+
+void update_buzzer(){
+  if(buzzer_state != BUZZER_OFF){
+    return;
+  }
+  buzzer_stop();
+}
 

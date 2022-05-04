@@ -14,14 +14,14 @@ void game_loop()
   generate_squares();
 
   while (1) {
-    if (redrawScreen) {
+    if(redrawScreen) {
       redrawScreen = 0;
       draw_screen();
     }
 
     led_red_off();        // P1OUT &= LED
     or_sr(0x10);	  /**< CPU OFF */
-    led_red_on();         // P1OUT |= LED
+    led_red_on();         // P1OUT |= ~LED
   }
 }
 

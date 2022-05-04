@@ -3,9 +3,6 @@
 
 
 
-int switches = 0;
-
-
 void switch_init(void) 
 {
   P2REN |= SWITCHES;		/* enables resistors for switches */

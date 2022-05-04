@@ -5,6 +5,7 @@
 #include "buzzer.h"
 #include "switches.h"
 #include "square.h"
+#include "state_machines.h"
 
 
 void main()
@@ -18,6 +19,7 @@ void main()
   enableWDTInterrupts();      /**< enable periodic interrupt */
   or_sr(0x8);	              /**< GIE (enable interrupts) */
   game_loop();
+  update_state();
 }
 
 
