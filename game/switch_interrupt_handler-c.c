@@ -1,7 +1,7 @@
 #include "switches.h"
 #include <msp430.h>
 
-int  sw0_status = 0;
+
 int  sw1_status = 0;
 int  sw2_status = 0;
 int  sw3_status = 0;
@@ -12,7 +12,7 @@ void switch_interrupt_handler()
   char p2val = switch_update_interrupt_sense();
   switches = ~p2val & SWITCHES;
 
-  int prev_status_sw0 = sw0_status;
+
   int prev_status_sw1 = sw1_status;
   int prev_status_sw2 = sw2_status;
   int prev_status_sw3 = sw3_status;

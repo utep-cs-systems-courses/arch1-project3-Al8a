@@ -27,7 +27,6 @@ void play_song_1()
 
 
 
-
 // TETRIS THEME
 void play_song_2()
 {
@@ -42,7 +41,6 @@ void play_song_2()
     // LOOP SONG 
     curr_note = 0;
 }
-
 
 
 
@@ -124,25 +122,63 @@ void play_song_3()
 
 
 int switches = 0;
+int current_state = 0;
 
-void update_state(int current_switch)
+
+void update_state()
 {
+  if(current_switch == (switches & SW2)){
+    play_song_1(); 
+    current_state = 2;
+    current_switch = 2;
+  }
+
+  if(current_switch == (switches & SW4)){
+    if(current_state != current_switch){
+      play_song_1(); 
+      display_text();
+    }
+    current_state = 4;
+    current_switch = 4;
+  }
+
+  if(current_switch == (switches & SW3)){
+    static int reset_count = 0;
+    switch(reset_count){
+    case 0:
+      clearScreen(COLOR_BLUE);
+      reset_count++;
+      break;
+    case 1:
+      clearScreen(COLOR_RED);
+      reset_count++;
+      break;
+    case 2:
+      clearScreen(COLOR_BLACK);
+      reset_count++;
+      break;
+    case 3:
+      clearScreen(COLOR_CYAN);
+      reset_count = 0;
+      break;
+    default:
+      clearScreen(COLOR_YELLOW);
+      reset_count = 0;
+      break;
+    }
+    current_state = 3;
+    current_switch = 3;
+  }
 
   if(current_switch == (switches & SW1)){
-    play_song_1();
-  }
-  else buzzer_stop();
-
-  if(current_switch == (switches & SW2)){
-    display_text();
-  }
-  if(current_switch == (switches & SW3)){
-    //draw_character();
-    clearScreen(COLOR_BLUE);
-  }
-  if(current_switch == (switches & SW4)){
-    reset_game();
-    display_reset_text();
+    if(current_state != current_switch){
+      reset_game();
+      display_reset_text();
+    }else if(current_state == current_switch){
+      exit_game_loop();
+    }
+    current_state = 1;
+    current_switch = 1;
   }
  
 }
@@ -152,12 +188,15 @@ void update_state(int current_switch)
 void reset_game(){
   clearScreen(COLOR_BLACK);
   buzzer_stop();
+  current_switch = 0;
+  current_state = 0;
 }
 
 
-
 void display_text(){
-  drawString8x12(20,100, "HOWDY", COLOR_BLACK, COLOR_YELLOW);
+  drawString5x7(20,20, "HI", COLOR_RED, COLOR_GREEN);
+  drawString8x12(30,50, "HOWDY", COLOR_BLACK, COLOR_YELLOW);
+  drawString11x16(50,70, "HELLO", COLOR_GREEN, COLOR_BROWN);
 }
 
 
@@ -167,5 +206,5 @@ void display_reset_text()
   clearScreen(COLOR_RED);
   fillRectangle(80,80,60,60,COLOR_ORANGE);
   drawString11x16(20,80,"GOODBYE", COLOR_BLACK, COLOR_WHITE);
-  
 }
+

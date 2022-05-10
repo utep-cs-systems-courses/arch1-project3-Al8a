@@ -9,10 +9,10 @@ void play_song_3();
 void display_text();
 void display_reset_text();
 
-//void update_sound();
-void update_state(int current_switch);
+void update_state();
 void reset_game();
 
-//void draw_character();
+extern int current_state;
+
 
 #endif 
