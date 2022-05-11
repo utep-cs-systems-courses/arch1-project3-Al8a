@@ -15,7 +15,7 @@ COMMON_OBJECTS  = main.o wdt_handler.o lcd.o led.o switches.o square.o buzzer.o 
 project3-c.elf: ${COMMON_OBJECTS} switch_interrupt_handler-c.o switch_update_interrupt_sense-c.o buzzer_timer_interrupt-c.o
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
-project3-s.elf: ${COMMON_OBJECTS} switch_interrupt_handler-s.o switch_update_interrupt_sense-s.o 
+project3-s.elf: ${COMMON_OBJECTS} switch_interrupt_handler-c.o switch_update_interrupt_sense-s.o buzzer_timer_interrupt-s.s 
 	${CC} ${CFLAGS} ${LDFLAGS} -o $@ $^ -lTimer -lLcd 
 
 load-c: project3-c.elf
@@ -23,8 +23,6 @@ load-c: project3-c.elf
 
 load-s: project3-s.elf
 	msp430loader.sh $^
-
-
 
 clean:
 	rm -f *.o *.elf *~ *#
